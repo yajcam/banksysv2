@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexaBank — Banking Simulator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" class="login-screen">
+  <div class="login-bg">
+    <div class="login-blob b1"></div>
+    <div class="login-blob b2"></div>
+    <div class="login-blob b3"></div>
+  </div>
+  <div class="login-card">
+    <div class="login-logo">
+      <span class="logo-icon">⬡</span>
+      <span class="logo-text">NexaBank</span>
+    </div>
+    <p class="login-subtitle">Secure Banking Simulator</p>
+    <div class="login-tabs">
+      <button class="ltab active" onclick="switchLoginTab('admin')">Admin</button>
+      <button class="ltab" onclick="switchLoginTab('user')">User</button>
+    </div>
+    <div id="adminLoginForm">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="adminUser" placeholder="admin" value="admin">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="adminPass" placeholder="••••••" value="admin">
+      </div>
+    </div>
+    <div id="userLoginForm" style="display:none">
+      <div class="form-group">
+        <label>Account Number</label>
+        <input type="text" id="userAccNum" placeholder="NXB-XXXXXXXX">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="userPass" placeholder="••••••">
+      </div>
+    </div>
+    <div id="loginError" class="login-error" style="display:none"></div>
+    <button class="btn-login" onclick="handleLogin()">Sign In</button>
+    <p class="login-hint">Default: admin / admin</p>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" class="app" style="display:none">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-icon">⬡</span>
+      <span class="logo-text">NexaBank</span>
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav">
+      <!-- filled by JS -->
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user-info" id="sidebarUserInfo"></div>
+      <button class="btn-logout" onclick="logout()">Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <!-- TOP BAR -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+        <div class="page-title" id="pageTitle">Dashboard</div>
+      </div>
+      <div class="topbar-right">
+        <div class="sim-controls">
+          <span class="sim-label">Speed:</span>
+          <select id="simSpeed" onchange="setSimSpeed(this.value)">
+            <option value="1">1x</option>
+            <option value="10">10x</option>
+            <option value="100">100x</option>
+          </select>
+        </div>
+        <div class="clock" id="sysClock"></div>
+        <button class="notif-btn" onclick="toggleNotifPanel()" id="notifBtn">🔔 <span class="notif-badge" id="notifBadge">0</span></button>
+        <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+      </div>
+    </div>
+
+    <!-- NOTIFICATION PANEL -->
+    <div class="notif-panel" id="notifPanel" style="display:none">
+      <div class="notif-header">
+        <span>Notifications</span>
+        <button onclick="clearNotifs()">Clear All</button>
+      </div>
+      <div id="notifList"></div>
+    </div>
+
+    <!-- PAGE CONTENT -->
+    <div class="page-content" id="pageContent">
+      <!-- dynamic content -->
+    </div>
+  </main>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div id="toastContainer" class="toast-container"></div>
+
+<!-- MODAL -->
+<div id="modal" class="modal" style="display:none">
+  <div class="modal-overlay" onclick="closeModal()"></div>
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
